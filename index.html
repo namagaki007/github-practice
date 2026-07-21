@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>販売管理</title>
+</head>
+
+<body>
+
+    <!-- タイトル部分 -->
+    <table border="1" width="300">
+        <tr>
+            <td>計算機</td>
+        </tr>
+    </table>
+
+    <!-- 数字ボタン -->
+    <table border="1" width="300">
+        <tr>
+            <td><button onclick="addNumber(1)">1</button></td>
+            <td><button onclick="addNumber(2)">2</button></td>
+            <td><button onclick="addNumber(3)">3</button></td>
+        </tr>
+        <tr>
+            <td><button onclick="addNumber(4)">4</button></td>
+            <td><button onclick="addNumber(5)">5</button></td>
+            <td><button onclick="addNumber(6)">6</button></td>
+        </tr>
+        <tr>
+            <td><button onclick="addNumber(7)">7</button></td>
+            <td><button onclick="addNumber(8)">8</button></td>
+            <td><button onclick="addNumber(9)">9</button></td>  
+        </tr>
+
+        <!-- 演算子ボタン -->
+        <tr>
+            <td><button onclick="addOperator('+')">+</button></td>
+            <td><button onclick="addOperator('-')">-</button></td>
+            <td><button onclick="addOperator('*')">×</button></td>
+            <td><button onclick="addOperator('/')">÷</button></td>
+        </tr>
+    </table>
+
+    <!-- 入力欄と計算ボタン -->
+    <table border="1" width="300">
+        <tr>
+            <td>
+                <button onclick="calculate()">計算</button>
+                <input type="text" id="mo" maxlength="15">
+            </td>
+        </tr>
+    </table>
+
+    <!-- 結果欄 -->
+    <table border="1" width="300">
+        <tr>
+            <td>
+                <label for="ke">計算結果</label>
+                <input type="text" id="ke" maxlength="10">
+            </td>
+        </tr>
+    </table>
+
+<script> 
+    /* -----------------------------
+       ★ 敬哉のコードを崩さず整えた JavaScript ★
+       ----------------------------- */
+
+    // 入力欄（mo）と結果欄（ke）を取得
+    // HTML の id="mo" と id="ke" を JavaScriptで使えるようにする
+    const mo = document.getElementById("mo");
+    const ke = document.getElementById("ke");
+
+    // 演算子（＋ − × ÷）を保存する変数
+    // ボタンを押したときにここに記号が入る
+    let op = "";
+
+    // 数字ボタンが押されたときの処理
+    // n には押された数字（1〜9）が入る
+    function addNumber(n) {
+        // 入力欄の末尾に数字を追加する
+        // 例：mo.value が "12" のとき addNumber(3) → "123"
+        mo.value = mo.value + n;
+    }
+
+    // 演算子ボタンが押されたときの処理
+    // mark には "+", "-", "*", "/" が入る
+    function addOperator(mark) {
+        // 演算子を記録しておく（後で計算に使う）
+        op = mark;
+
+        // 入力欄の末尾に演算子を追加する
+        // 例：mo.value が "12" のとき addOperator("+") → "12+"
+        mo.value = mo.value + mark;
+    }
+
+    // 計算ボタンが押されたときの処理
+    function calculate() {
+
+        // 入力欄の式を取得（例： "12+3"）
+        const expr = mo.value;
+
+        // 演算子がどこにあるか探す
+        // 例： "12+3" の "+" は 2番目（0,1,2）
+        const pos = expr.indexOf(op);
+
+        // 左側の数字を取り出す（例： "12"）
+        const left = Number(expr.slice(0, pos));
+
+        // 右側の数字を取り出す（例： "3"）
+        const right = Number(expr.slice(pos + 1));
+
+        // 計算結果を入れる変数
+        let result = 0;
+
+        // 演算子ごとに計算方法を分ける
+        if (op === "+") result = left + right;
+        if (op === "-") result = left - right;
+        if (op === "*") result = left * right;
+        if (op === "/") result = left / right;
+
+        // 結果欄に計算結果を書き込む
+        ke.value = result;
+    }
+
+</script>
+
+</body>
+</html>
